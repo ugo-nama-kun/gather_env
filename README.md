@@ -4,11 +4,12 @@ Minimum replication of hierarchical deep reinforcement learning "Gather" environ
 
 Models, environment settings, and codes are inspired by previous creators. Written in papers (such as https://sites.google.com/view/hippo-rl)
 
-![Screen_Shot_2021-03-15_at_14.42.37](/uploads/277229a8947f5ad4b8571c9949a13632/Screen_Shot_2021-03-15_at_14.42.37.png)
+![ant](https://user-images.githubusercontent.com/1684732/122540133-47ceb180-d063-11eb-8239-6aa1ec40d984.png) ![snake](https://user-images.githubusercontent.com/1684732/122540145-4bfacf00-d063-11eb-96c6-5d4b5c29018d.png)
+
 
 ## Install
 ```shell
-git clone ssh://git@gitlab:50002/n-yoshida/gather_env.git
+git clone git@github.com:ugo-nama-kun/gather_env.git 
 pip install -e gather_env
 ```
 
