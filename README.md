@@ -1,5 +1,5 @@
 # GatherEnv Swimmer/Ant(+low gear)/Snake
-Minimum replication of hierarchical deep reinforcement learning "Gather" environments. Replicated environments do not dependent on rllab and use open-ai gym interface. Then, our environments can run with the latest optimization packages.
+Minimum replication of hierarchical deep reinforcement learning "Gather" environments. Replicated environments do not depend on rllab and use open-ai gym interface. Then, our environments can run with the latest optimization packages.
 
 
 Models, environment settings, and codes are inspired by previous creators. Written in papers (such as https://sites.google.com/view/hippo-rl)
