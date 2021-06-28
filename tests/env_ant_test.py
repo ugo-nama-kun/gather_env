@@ -45,6 +45,7 @@ class TestEnv:
         env.reset()
         for i in range(10):
             env.step(env.action_space.sample())
+        env.close()
 
     def test_render_env(self):
         env = AntGatherEnv()

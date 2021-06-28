@@ -122,6 +122,8 @@ class GatherEnv(MujocoEnv, utils.EzPickle):
         ub = BIG * np.ones(np.concatenate(self.get_readings()).shape)
         self.maze_obs_space = spaces.Box(ub * -1, ub)
 
+        self._action_space = None
+
     def viewer_setup(self):
         for key, value in DEFAULT_CAMERA_CONFIG.items():
             if isinstance(value, np.ndarray):
@@ -255,7 +257,14 @@ class GatherEnv(MujocoEnv, utils.EzPickle):
 
     @property
     def action_space(self):
-        return self.wrapped_env.action_space
+        if self._action_space is None:
+            return self.wrapped_env.action_space
+        else:
+            return self._action_space
+
+    @action_space.setter
+    def action_space(self, new_space):
+        self._action_space = new_space
 
     @property
     def action_bounds(self):
@@ -276,8 +285,9 @@ class GatherEnv(MujocoEnv, utils.EzPickle):
         return self.wrapped_env.sim.data.qpos[self.__class__.ORI_IND]
 
     def close(self):
-        glfw.destroy_window(self.wrapped_env.viewer.window)
-        self.viewer = None
+        if self.wrapped_env.viewer:
+            glfw.destroy_window(self.wrapped_env.viewer.window)
+            self.viewer = None
 
     def render(self,
                mode='human',
