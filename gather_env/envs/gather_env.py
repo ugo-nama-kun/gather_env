@@ -124,6 +124,8 @@ class GatherEnv(MujocoEnv, utils.EzPickle):
 
         self._action_space = None
 
+        self.local_step = 0
+
     def viewer_setup(self):
         for key, value in DEFAULT_CAMERA_CONFIG.items():
             if isinstance(value, np.ndarray):
@@ -132,6 +134,7 @@ class GatherEnv(MujocoEnv, utils.EzPickle):
                 setattr(self.viewer.cam, key, value)
 
     def reset(self):
+        self.local_step = 0
         self.wrapped_env.reset()
         self.objects = []
         existing = set()
@@ -188,6 +191,11 @@ class GatherEnv(MujocoEnv, utils.EzPickle):
                 new_objs.append(obj)
         self.objects = new_objs
         done = len(self.objects) == 0
+
+        self.local_step += 1
+        if self.local_step >= self._max_episode_steps:
+            done = True
+
         return self.get_current_obs(), reward, done, info
 
     def get_readings(self):  # equivalent to get_current_maze_obs in maze_env.py

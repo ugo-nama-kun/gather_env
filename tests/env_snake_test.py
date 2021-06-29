@@ -20,6 +20,19 @@ class TestEnv:
         assert len(obs) == 12 + 10 + 10  # 17 + 10 + 10 if non-ego-centric observation
         assert len(env.action_space.sample()) == 4
 
+    def test_terminal(self):
+        env = SnakeGatherEnv(max_episode_steps=100)
+        env.reset()
+        for i in range(100):
+            _, _, done, _ = env.step(env.action_space.sample())
+
+            print(i, done, env._max_episode_steps)
+            if i == 99:
+                assert done is True
+            else:
+                assert done is False
+        env.close()
+
     def test_run_env(self):
         env = SnakeGatherEnv()
         env.reset()

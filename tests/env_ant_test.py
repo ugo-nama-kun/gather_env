@@ -40,6 +40,19 @@ class TestEnv:
         assert len(obs) == 27 + 10 + 10
         assert len(env.action_space.sample()) == 8
 
+    def test_terminal(self):
+        env = AntGatherEnv(max_episode_steps=10)
+        env.reset()
+        for i in range(10):
+            _, _, done, _ = env.step(env.action_space.sample())
+
+            print(i, done, env._max_episode_steps)
+            if i == 9:
+                assert done is True
+            else:
+                assert done is False
+        env.close()
+
     def test_run_env(self):
         env = AntGatherEnv()
         env.reset()
