@@ -108,11 +108,13 @@ class GatherEnv(MujocoEnv, utils.EzPickle):
                 name="wall4",
                 pos="%d 0 0" % walldist,
                 size="0.5 %d.5 1" % walldist))
-        _, file_path = tempfile.mkstemp(text=True, suffix=".xml")
-        tree.write(file_path)
 
-        # build mujoco
-        self.wrapped_env = model_cls(file_path, **kwargs)
+        with tempfile.NamedTemporaryFile(mode='wt', suffix=".xml") as tmpfile:
+            file_path = tmpfile.name
+            tree.write(file_path)
+
+            # build mujoco
+            self.wrapped_env = model_cls(file_path, **kwargs)
 
         # optimization, caching obs spaces
         ub = BIG * np.ones(self.get_current_obs().shape)
